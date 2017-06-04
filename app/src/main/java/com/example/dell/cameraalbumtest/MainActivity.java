@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //创建File对象，用于存储拍照后的照片
                 File outputImage = new File(getExternalCacheDir(),"output_image.jpg");
+                //创建一个File对象，用于存放摄像头拍到的照片，并把图片命名为output_image.jpg
+                //将它存放在手机SD卡的应用关联缓存目录下
+                //getExternalCacheDir()方法可以的到目录
                 try
                 {
                     if(outputImage.exists()){
@@ -43,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(Build.VERSION.SDK_INT >= 24){
                     imageUri = FileProvider.getUriForFile(MainActivity.this, "com.example.dell.cameraalbumtest.fileprovider",outputImage);
-                }else {
+                }
+                else
+                {
                     imageUri = Uri.fromFile(outputImage);
                 }
                 //启动相机程序
