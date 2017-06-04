@@ -25,3 +25,7 @@
         </provider>
     </application>
 </manifest>
+<!--<provider>中android:name属性值是固定的
+android:authorities属性值必须要和刚才FileProvider.getUriForFile()方法中的第二个参数一致
+然后运用<provider>标签的内部使用<meta-data>来指定Uri的共享路径，并引用了一个@xml/file_paths资源
+-->
