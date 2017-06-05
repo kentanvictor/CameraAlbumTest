@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private void openAlbum()
     {
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        //构建intent对象，并指定为android.intent.action.GET_CONTENT
         intent.setType("image/*");
         startActivityForResult(intent,CHOOSE_PHOTO);//打开相册
     }
@@ -132,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                         //4.4及以下系统使用这个方法处理图片
                         handleImageBeforeKitKat(data);
                     }
+                    //这里为了兼容新老版本的手机，做出了这样的判断
                 }
                 break;
             default:
@@ -140,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
     @TargetApi(19)
     private void handleImageOnKitKat(Intent data)
+            //这里面就相当于如何解析这个封装过的Uri
     {
         String imagepath = null;
         Uri uri = data.getData();
@@ -150,6 +153,8 @@ public class MainActivity extends AppCompatActivity {
             if("com.android.providers.media.documents".equals(uri.getAuthority()))
             {
                 String id = docId.split(":")[1];//解析出数字格式的id
+                //解析出新的id用于构建新的Uri和条件语句
+                //然后把这些值传入getImagePath()中就能获取图片的真实路径
                 String selection = MediaStore.Images.Media._ID + "=" + id;
                 imagepath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
             }else if ("com.android.providers.downloads.documents".equals(uri.getAuthority()))
@@ -172,6 +177,8 @@ public class MainActivity extends AppCompatActivity {
     private void handleImageBeforeKitKat(Intent data)
     {
         Uri uri = data.getData();
+        //4.4及以上的Uri是经过封装过，所以需要解析
+        //而4.4及以下的Uri没有经过封装，所以直接将Uri传入到getImagePath()方法当中就可以直接获取到图片的真实路径
         String imagePath = getImagePath(uri,null);
         displayImage(imagePath);
     }
