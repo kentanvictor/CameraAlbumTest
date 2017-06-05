@@ -74,7 +74,10 @@ public class MainActivity extends AppCompatActivity {
                     ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE },1);
                 }else{
                     openAlbum();
+                    //授权权限申请之后调用openAlbum()方法
                 }
+                //运行时权限动态申请处理
+                //WRITE_EXTERNAL_STORAGE表示同时授予程序对SD卡的读写能力
             }
         });
     }
